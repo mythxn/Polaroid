@@ -21,10 +21,6 @@ $("#newComment").submit(function (e) {
 $("#newPost").submit(function (e) {
   e.preventDefault();
   var post = $(this).serializeArray();
-  var name = post[0].value;
-  var image = post[1].value;
-  var desc = post[2].value;
-  var author = post[3].value;
 
   $.post("/polaroids/", post, function (data) {
     location.reload();
@@ -84,7 +80,7 @@ $("#search").on("input", function (e) {
             <img src=" ${polaroid.image}" style="min-width: 100%; max-height: 200px; object-fit: cover;">
             <div class="caption">
                <h4>  ${polaroid.name} </h4>
-               <em> ${polaroid.name}</em>
+               <em> ${polaroid.author}</em>
             </div>
             <p>
                <a href="/polaroids/${polaroid.name}" class="btn btn-primary">More Info</a>
