@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Report</title>
+    <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: teal;
+            color: aliceblue;
+            font-family: 'Questrial', sans-serif;
+            margin: 5%;
+            font-size: 1.5em;
+        }
+
+        img {
+            width: 70%;
+            margin: 2%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>CW3 Report - Polaroids - CSD2500 - Mithun Shanoj - M00739358</h1>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>Front-end design</h3>
+
+        <img class="w3-round" src="media/1.png" style="width: 40%;">
+        <img class="w3-round" src="media/2.png" style="width: 40%;">
+        <img class="w3-round" src="media/3.png" style="width: 40%;">
+        <img class="w3-round" src="media/4.png" style="width: 40%;">
+        <img class="w3-round" src="media/5.png" style="width: 40%;">
+
+        <p>Every page was designed to be minimal and clea, this was done not only to keep the website light-weight but
+            also ensure excellent usability.</p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>Use registration and login</h3>
+
+        <video autoplay controls style="padding-top: 2%" width="70%">
+            <source src="media/6.mp4" type="video/mp4">
+        </video>
+
+        <p>User when registering for a new account, is automatically logged in. Already logged in users can setting new
+            accounts as well all within the same page.</p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>Creating post with text and image</h3>
+
+        <video autoplay controls style="padding-top: 2%" width="70%">
+            <source src="media/7.mp4" type="video/mp4">
+        </video>
+
+        <img class="w3-round" src="media/8.png" style="width: 40%;">
+        <img class="w3-round" src="media/9.png" style="width: 40%;">
+
+        <p>For my site, I handle image aspect of posts using third party uploadeders. As only post image displaying was
+            a functional requirement - I decided to focus on it.</p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>Display and search other’s posts</h3>
+
+        <video autoplay controls style="padding-top: 2%" width="70%">
+            <source src="media/10.mp4" type="video/mp4">
+        </video>
+
+        <img class="w3-round" src="media/11.png" style="width: 50%;">
+        <img class="w3-round" src="media/12.png" style="width: 40%;">
+
+        <p>Search is implemented in such a way that one can search by post name, post author, post description.</p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>Database and tables</h3>
+
+        <img class="w3-round" src="media/13.png" style="width: 90%;">
+
+        <p>Database solution used: Sqlite3.</p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>Database storage and retrieval</h3>
+
+        <img class="w3-round" src="media/14.png" style="width: 40%;">
+        <img class="w3-round" src="media/15.png" style="width: 50%;">
+        <img class="w3-round" src="media/16.png" style="width: 40%;">
+        <img class="w3-round" src="media/17.png" style="width: 50%;">
+
+        <p>All of database requests also including website's cosmetic changes are all done using jQuery's built-in Ajax
+            handler for requests and sqlite3 NodeJS plugin for actual interaction with DB.</p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>HMTL & CSS validation</h3>
+
+        <img class="w3-round" src="media/18.png" style="width: 50%;">
+        <img class="w3-round" src="media/19.png" style="width: 40%;">
+
+        <p>Since most of my CSS is handled by Bootstrap, I didn't have much to validate but in the case of HTML, most of
+            my warnings were from using ejs related commands in the file.</p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>Selenium Testing</h3>
+
+        <img class="w3-round" src="media/20.png" style="width: 45%;">
+        <img class="w3-round" src="media/21.png" style="width: 45%;">
+
+        <p>2 tests were ran, one for login and one for testing the comments. Both came out successful as can be seen
+            from the screenshots.</p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>qUnit Testing</h3>
+
+        <img class="w3-round" src="media/22.png">
+        <img class="w3-round" src="media/23.png">
+
+        <p>2 tests were ran, both login related, to check login status when logged in and when logged out. Both tests
+            were successful.</p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>Security, privacy and legal issues</h3>
+
+        <p>
+            <ul>
+                <li><strong>Security:</strong> Since my DB was managed by Sqlite3, it auto handles SQL injection so I
+                    didn't have to write my own code to prevent any injection related attacks as it was all already
+                    built-in. A possible vulnerability is the website in it's current form uses http and not https so
+                    all data flowing through the site is not encrypted.</li>
+                <li><strong>Privacy:</strong> Since every request is send dynamically with AJAX and nothing is shown in
+                    the query strings, users can stay calm as their data is not exposed on the URLs, however the DB in
+                    it's current form is not password protected so that's something to look out for.</li>
+                <li><strong>Legal:</strong> All code is open sourced for anyone to view on my personal <a
+                        href="https://github.com/mythxn/Polaroid">GitHub account</a>.</li>
+            </ul>
+        </p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>External Libraries Used</h3>
+
+        <p>
+            <ul>
+                <li><a href="https://api.jquery.com/jquery.ajax/">Ajax throught jQuery</a></li>
+                <li><a href="https://www.npmjs.com/package/body-parser">body-parser</a></li>
+                <li><a href="https://www.npmjs.com/package/ejs">ejs</a></li>
+                <li><a href="https://www.npmjs.com/package/express">express</a></li>
+                <li><a href="https://www.npmjs.com/package/nodemon">nodemon</a></li>
+                <li><a href="https://www.npmjs.com/package/sqlite3">sqlite3</a></li>
+            </ul>
+        </p>
+    </div>
+
+    <br>
+
+    <div class="w3-panel w3-border w3-pale-blue w3-round-large">
+        <h3>How to run?</h3>
+        <ul>
+            <li>git clone https://github.com/mythxn/Polaroid.git</li>
+            <li>cd Polaroid</li>
+            <li>npm i</li>
+            <li>npm start</li>
+        </ul>
+    </div>
+
+</body>
+
+</html>

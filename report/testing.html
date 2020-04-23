@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>qUnit Testing</title>
+   <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.1.1.css">
+   <script src="https://code.jquery.com/qunit/qunit-2.1.1.js"></script>
+</head>
+
+<body>
+   <div id="qunit"></div>
+   <div id="qunit-fixture"></div>
+
+   <script>
+      function isLoggedIn_out() {
+         var loggedInUsr = "";
+
+         if (loggedInUsr !== "") {
+            return true;
+         } else {
+            return false;
+         }
+      }
+
+      QUnit.test("Testing login status when logged out", function (assert) {
+         assert.strictEqual(isLoggedIn_out(), false)
+      })
+
+
+      function isLoggedIn_in() {
+         var loggedInUsr = "ree";
+
+         if (loggedInUsr !== "") {
+            return true;
+         } else {
+            return false;
+         }
+      }
+
+      QUnit.test("Testing login status when logged in", function (assert) {
+         assert.strictEqual(isLoggedIn_in(), true)
+      })
+   </script>
+</body>
+
+</html>
