@@ -34,30 +34,19 @@ function isLoggedIn(req, res, next) {
   }
 }
 
-app.get("/login", function (req, res) {
-  res.render("login");
-});
-
 app.post("/login", function (req, res) {
   username = req.body.username;
   const sql = 'SELECT * FROM users where username = "' + username + '";';
   db.all(sql, [], (err, userFromDB) => {
     if (userFromDB.length === 0) {
-      res.redirect("/login");
-      console.log("Wrong credentials!");
+      res.json("Wrong credentials!");
     } else if (userFromDB[0].password === req.body.password) {
-      console.log("Credentials match, logging in!");
+      res.json("Credentials match, logging in!");
       loggedInUsr = username;
-      res.redirect("/polaroids");
     } else {
-      res.redirect("/login");
-      console.log("Wrong credentials!");
+      res.json("Wrong credentials!");
     }
   });
-});
-
-app.get("/register", function (req, res) {
-  res.render("register");
 });
 
 app.post("/register", function (req, res) {
@@ -65,45 +54,58 @@ app.post("/register", function (req, res) {
   const comment = [req.body.username, req.body.password];
   db.run(sql, comment, (err) => {
     loggedInUsr = req.body.username;
-    res.redirect("/polaroids");
+    res.json("Logging you in!");
   });
 });
 
-app.get("/logout", function (req, res) {
+app.post("/logout", function (req, res) {
   loggedInUsr = "";
-  res.redirect("/polaroids");
+  res.json("logged out");
 });
 
 // COMMENTS
-app.get("/polaroids/:name/comments/new", isLoggedIn, function (req, res) {
-  name = req.params.name;
-  res.render("comments/new");
-});
-
 app.post("/polaroids/:name/comments", isLoggedIn, function (req, res) {
   post_name = req.params.name;
   username = loggedInUsr;
   const sql = "INSERT INTO comment (text, author, post_name) VALUES (?, ?, ?)";
-  const comment = [req.body.comment.text, loggedInUsr, post_name];
+  const comment = [req.body.text, loggedInUsr, post_name];
   db.run(sql, comment, (err) => {
     // if (err) ...
-    res.redirect("/polaroids/" + encodeURIComponent(name.trim()));
+    res.json(comment);
   });
 });
 
 // POLAROIDS
 app.get("/", function (req, res) {
+  // index route for testing purposes
   res.redirect("/polaroids");
 });
 
 app.get("/polaroids", function (req, res) {
-  const sql = "SELECT * FROM posts;";
-  db.all(sql, [], (err, polaroids) => {
-    res.render("polaroids/index", {
-      polaroids: polaroids,
-      currentUser: loggedInUsr,
+  var sql = "";
+  term = req.query.keyword;
+  if (req.query.keyword || req.query.keyword === "") {
+    sql =
+      'SELECT * FROM posts where name like "%' +
+      term +
+      '%" OR desc like "%' +
+      term +
+      '%" OR author like "%' +
+      term +
+      '%";';
+    db.all(sql, [], (err, polaroids) => {
+      res.json(polaroids);
     });
-  });
+  } else {
+    sql = "SELECT * FROM posts;";
+    db.all(sql, [], (err, polaroids) => {
+      res.render("polaroids/index", {
+        polaroids: polaroids,
+        loggedIn: loggedInUsr,
+        comment: "",
+      });
+    });
+  }
 });
 
 app.post("/polaroids", isLoggedIn, function (req, res) {
@@ -113,12 +115,8 @@ app.post("/polaroids", isLoggedIn, function (req, res) {
   const polaroid = [req.body.name, req.body.image, req.body.desc, author];
   db.run(sql, polaroid, (err) => {
     // if (err) ...
-    res.redirect("/polaroids");
+    res.json(polaroid);
   });
-});
-
-app.get("/polaroids/new", isLoggedIn, function (req, res) {
-  res.render("polaroids/new");
 });
 
 app.get("/polaroids/:name", function (req, res) {
@@ -131,26 +129,8 @@ app.get("/polaroids/:name", function (req, res) {
         polaroids: polaroids[0],
         comment: comment,
         user: polaroids[0].author,
+        loggedIn: loggedInUsr,
       });
-    });
-  });
-});
-
-// SEARCH
-app.get("/search", function (req, res) {
-  var term = req.query.term;
-  const sql =
-    'SELECT * FROM posts where name like "%' +
-    term +
-    '%" OR desc like "%' +
-    term +
-    '%" OR author like "%' +
-    term +
-    '%";';
-  db.all(sql, [], (err, polaroids) => {
-    res.render("polaroids/index", {
-      polaroids: polaroids,
-      currentUser: loggedInUsr,
     });
   });
 });

@@ -17,18 +17,32 @@
 
     <div class="col-md-4 well">
       <% link = encodeURIComponent(polaroids.name.trim()) %>
+      <% if (loggedIn !== "") { %>
+      <form action="/polaroids/<%= name %>/comments" id="newComment" method="POST">
+        <div class="form-group">
+          <input class="form-control" type="text" name="text" placeholder="comment">
+          <input type="hidden" name="name" value="<%= name %>" />
+          <input type="hidden" name="user" value="<%= loggedIn %>" />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-lg btn-success btn-block">Add New Comment</button>
+        </div>
+      </form>
+      <% } else { %>
       <div class="text-right">
-        <a class="btn btn-success" href="/polaroids/<%= link %>/comments/new">Add New Comment</a>
+        <a href="/" class="btn btn-lg btn-block btn-info">Please login to comment</a>
       </div>
+      <% } %>
       <hr>
-      <% comment.forEach(comment => { %>
-      <div class="row">
+
+      <div id="commentsView" class="row">
+        <% comment.forEach(comment => { %>
         <div class="col-md-12">
           <strong><%= comment.author %></strong>
           <p><%= comment.text %></p>
         </div>
+        <% }) %>
       </div>
-      <% }) %>
     </div>
   </div>
 </div>

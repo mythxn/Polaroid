@@ -1,14 +1,64 @@
 <%- include ("../partials/header.ejs") %>
 
 <div class="container">
-
    <header class="jumbotron">
       <div class="container">
-         <h1>Welcome to Polaroids!</h1>
-         <p>They say pictures mean a thousand words, so come on over and share your story</p>
-         <p>
-            <a class="btn btn-primary btn-lg" href="/polaroids/new">Add New Polaroid</a>
-         </p>
+         <% if (loggedIn !== "") { %>
+         <div class="row">
+            <div class="col-md-7">
+               <h1>Show the world, through your lens!</h1>
+            </div>
+            <div class="col-md-5">
+               <form action="/polaroids" method="POST" id="newPost">
+                  <div class="form-group">
+                     <input class="form-control" type="text" name="name" placeholder="name">
+                  </div>
+                  <div class="form-group">
+                     <input class="form-control" type="text" name="image" placeholder="image url">
+                  </div>
+                  <div class="form-group">
+                     <input class="form-control" type="text" name="desc" placeholder="description">
+                  </div>
+                  <input type="hidden" name="user" value="<%= loggedIn %>" />
+                  <div class="form-group">
+                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <% } else { %>
+         <div class="row">
+            <div class="col-md-6">
+               <h2>Welcome to Polaroids!</h2>
+               <p style="font-size: 2em;">They say pictures mean a thousand words, so come on over and share your
+                  story</p>
+            </div>
+            <div class="col-md-3">
+               <h4>Sign-up Here</h4>
+               <form action="register" id="registerForm" method="POST">
+                  <div class="form-group">
+                     <input class="form-control" type="text" name="username" placeholder="username">
+                     <input class="form-control" type="password" name="password" placeholder="password">
+                  </div>
+                  <div class="form-group">
+                     <button class="btn btn-lg btn-primary btn-block">Register!</button>
+                  </div>
+               </form>
+            </div>
+            <div class="col-md-3">
+               <h4>Sign-in Here</h4>
+               <form action="login" id="loginForm" method="POST">
+                  <div class="form-group">
+                     <input class="form-control" type="text" name="username" placeholder="username">
+                     <input class="form-control" type="password" name="password" placeholder="password">
+                  </div>
+                  <div class="form-group">
+                     <button class="btn btn-lg btn-primary btn-block">Login!</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <% } %>
       </div>
    </header>
 
@@ -18,17 +68,18 @@
       </div>
    </div>
 
-   <div class="row text-center" style="display: flex; flex-wrap: wrap;">
+   <div class="row text-center" id="polaroidResults" style="display: flex; flex-wrap: wrap;">
       <% polaroids.forEach(function(polaroids) { %>
       <div class="col-md-3 col-sm-6">
-         <div class="thumbnail">
-            <img src="<%= polaroids.image %>">
+         <div class="thumbnail" style="min-height:90%;">
+            <img src="<%= polaroids.image %>" style="min-width: 100%; max-height: 200px; object-fit: cover;">
             <div class="caption">
                <h4><%= polaroids.name %> </h4>
                <em><%= polaroids.author %> </em>
             </div>
             <p>
-               <a href="/polaroids/<%= polaroids.name %>" class="btn btn-primary">More Info</a>
+               <a data="<%= polaroids.name %>" href="/polaroids/<%= polaroids.name %>"
+                  class="btn btn-primary moreInfo">More Info</a>
             </p>
          </div>
       </div>
