@@ -136,6 +136,7 @@ app.get("/polaroids/:name", function (req, res) {
 });
 
 // SERVER
-app.listen(8080, "localhost", function () {
-  console.log("Polaroid being served at localhost:8080");
-});
+app.listen(process.env.PORT || 3000, () => {
+    console.log('Server is running')
+})
+
